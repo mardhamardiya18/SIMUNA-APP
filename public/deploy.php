@@ -1,7 +1,12 @@
 <?php
 
-// Standalone Production Deployment Runner for Shared Hosting (Hostinger)
-$secret = env('DEPLOY_SECRET', 'SimunaSecure2026!');
+// Enable error reporting to catch any PHP fatal errors gracefully
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+// Secret token for deployment security
+$secret = 'SimunaSecure2026!';
 
 if (($_GET['secret'] ?? '') !== $secret) {
     http_response_code(403);
