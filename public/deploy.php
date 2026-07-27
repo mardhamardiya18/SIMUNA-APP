@@ -13,6 +13,12 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     chdir(__DIR__ . '/..');
 }
 
+// Set temporary env vars in memory so boot doesn't crash on missing session/cache tables
+$_ENV['SESSION_DRIVER'] = 'file';
+$_ENV['CACHE_STORE'] = 'file';
+putenv('SESSION_DRIVER=file');
+putenv('CACHE_STORE=file');
+
 require __DIR__ . '/../vendor/autoload.php';
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
