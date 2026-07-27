@@ -37,10 +37,10 @@ onMounted(() => {
     <Head title="Konfirmasi Rekap Imunisasi - SIMUNA" />
     <Toast />
 
-    <div class="min-h-screen bg-gradient-to-br from-emerald-50/60 via-slate-50 to-teal-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30 flex flex-col text-slate-800 dark:text-slate-100">
+    <div class="min-h-screen bg-gradient-to-br from-emerald-50/60 via-slate-50 to-teal-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30 flex flex-col text-slate-800 dark:text-slate-100 w-full overflow-x-hidden">
         <Navbar />
 
-        <main class="flex-1 py-8 px-4 sm:px-6 max-w-3xl mx-auto w-full">
+        <main class="flex-1 py-4 sm:py-8 px-3.5 sm:px-6 max-w-3xl mx-auto w-full">
             <!-- Success Hero Banner -->
             <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-emerald-100 dark:border-slate-800 shadow-xl text-center relative overflow-hidden mb-6">
                 <div class="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-4 animate-bounce">

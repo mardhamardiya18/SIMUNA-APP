@@ -131,10 +131,10 @@ function deleteRecord(id: number, name: string) {
     <Head title="Panel Admin - SIMUNA" />
     <Toast />
 
-    <div class="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col text-slate-800 dark:text-slate-100">
+    <div class="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col text-slate-800 dark:text-slate-100 w-full overflow-x-hidden">
         <Navbar />
 
-        <main class="flex-1 py-8 px-4 sm:px-6 max-w-7xl mx-auto w-full">
+        <main class="flex-1 py-4 sm:py-8 px-3.5 sm:px-6 max-w-7xl mx-auto w-full">
             <!-- Header Title -->
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
                 <div>

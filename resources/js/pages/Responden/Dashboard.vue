@@ -43,10 +43,10 @@ const showQrModal = ref(false)
     <Head title="Dashboard Imunisasi Saya - SIMUNA" />
     <Toast />
 
-    <div class="min-h-screen bg-gradient-to-br from-emerald-50/60 via-slate-50 to-teal-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30 flex flex-col text-slate-800 dark:text-slate-100">
+    <div class="min-h-screen bg-gradient-to-br from-emerald-50/60 via-slate-50 to-teal-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30 flex flex-col text-slate-800 dark:text-slate-100 w-full overflow-x-hidden">
         <Navbar />
 
-        <main class="flex-1 py-6 sm:py-8 px-4 sm:px-6 max-w-5xl mx-auto w-full">
+        <main class="flex-1 py-4 sm:py-8 px-3.5 sm:px-6 max-w-5xl mx-auto w-full">
             <!-- Header Welcome Banner -->
             <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-emerald-100 dark:border-slate-800 shadow-xl mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div>

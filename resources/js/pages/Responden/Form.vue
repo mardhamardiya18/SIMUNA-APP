@@ -156,30 +156,30 @@ function submit() {
     <Head title="Form Kelengkapan Imunisasi - SIMUNA" />
     <Toast />
 
-    <div class="min-h-screen bg-gradient-to-br from-emerald-50/60 via-slate-50 to-teal-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30 flex flex-col text-slate-800 dark:text-slate-100">
+    <div class="min-h-screen bg-gradient-to-br from-emerald-50/60 via-slate-50 to-teal-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30 flex flex-col text-slate-800 dark:text-slate-100 w-full overflow-x-hidden">
         <Navbar />
 
-        <main class="flex-1 py-8 px-4 sm:px-6 max-w-4xl mx-auto w-full">
+        <main class="flex-1 py-4 sm:py-8 px-3.5 sm:px-6 max-w-4xl mx-auto w-full">
             <!-- Header Section -->
-            <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-emerald-600/20 mb-8 relative overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl shadow-emerald-600/20 mb-6 sm:mb-8 relative overflow-hidden">
                 <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
 
-                <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold mb-3">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] sm:text-xs font-semibold mb-2 sm:mb-3">
                             <Sparkles class="w-3.5 h-3.5" />
                             Pendataan Imunisasi Anak Posyandu
                         </div>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Form Kelengkapan Imunisasi</h1>
+                        <h1 class="text-xl sm:text-3xl font-extrabold tracking-tight">Form Kelengkapan Imunisasi</h1>
                         <p class="text-emerald-100 text-xs sm:text-sm mt-1 max-w-xl">
                             Silakan lengkapi formulir di bawah ini. Data ter-autofill dari pendaftaran Anda. Setelah disimpan, Anda akan menerima ID Verifikasi Posyandu.
                         </p>
                     </div>
 
-                    <div class="bg-white/15 backdrop-blur-md rounded-2xl p-3 border border-white/20 text-center shrink-0 self-stretch md:self-auto flex items-center justify-center gap-3">
-                        <HeartPulse class="w-8 h-8 text-emerald-200" />
+                    <div class="bg-white/15 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 border border-white/20 text-center shrink-0 flex items-center justify-start sm:justify-center gap-2.5 sm:gap-3">
+                        <HeartPulse class="w-6 h-6 sm:w-8 sm:h-8 text-emerald-200 shrink-0" />
                         <div class="text-left">
-                            <p class="text-[10px] text-emerald-200 font-semibold uppercase">Puskesmas Mitra</p>
+                            <p class="text-[9px] sm:text-[10px] text-emerald-200 font-semibold uppercase tracking-wider">Puskesmas Mitra</p>
                             <p class="text-xs font-bold text-white">SIMUNA Sehat Bersama</p>
                         </div>
                     </div>
