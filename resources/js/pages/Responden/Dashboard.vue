@@ -146,43 +146,66 @@ const showQrModal = ref(false)
                 </div>
             </div>
 
-            <!-- Tabs Navigation -->
-            <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 mb-6 overflow-x-auto pb-1 scrollbar-none">
-                <button
-                    @click="activeTab = 'completed'"
-                    class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 whitespace-nowrap cursor-pointer"
-                    :class="activeTab === 'completed' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                >
-                    <CheckCircle2 class="w-4 h-4" />
-                    <span>Sudah Dilakukan ({{ completedList.length }})</span>
-                </button>
+            <!-- Tabs Header & Slider Hint -->
+            <div class="flex items-center justify-between gap-2 mb-3 px-1">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
+                    <HeartPulse class="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <span>Menu Imunisasi & Informasi</span>
+                </div>
+                <span class="text-[10px] sm:text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100/80 dark:bg-emerald-950/80 px-2.5 py-1 rounded-full flex items-center gap-1 animate-pulse shrink-0">
+                    <span>Geser menu</span>
+                    <ChevronRight class="w-3.5 h-3.5" />
+                </span>
+            </div>
 
-                <button
-                    @click="activeTab = 'upcoming'"
-                    class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 whitespace-nowrap cursor-pointer"
-                    :class="activeTab === 'upcoming' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                >
-                    <Clock class="w-4 h-4" />
-                    <span>Terjadwal / Belum ({{ upcomingList.length }})</span>
-                </button>
+            <!-- Tabs Navigation (Slideable Horizontal Pills) -->
+            <div class="relative mb-6">
+                <div class="flex items-center gap-2 overflow-x-auto py-2 px-1 scroll-smooth snap-x touch-pan-x border-b border-slate-200 dark:border-slate-800">
+                    <button
+                        @click="activeTab = 'completed'"
+                        class="snap-start shrink-0 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 cursor-pointer"
+                        :class="activeTab === 'completed' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 scale-[1.02]' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    >
+                        <CheckCircle2 class="w-4 h-4 text-emerald-400" :class="{ 'text-white': activeTab === 'completed' }" />
+                        <span>Sudah Dilakukan</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold" :class="activeTab === 'completed' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'">
+                            {{ completedList.length }}
+                        </span>
+                    </button>
 
-                <button
-                    @click="activeTab = 'all'"
-                    class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 whitespace-nowrap cursor-pointer"
-                    :class="activeTab === 'all' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                >
-                    <HeartPulse class="w-4 h-4" />
-                    <span>Jenis Imunisasi Tersedia</span>
-                </button>
+                    <button
+                        @click="activeTab = 'upcoming'"
+                        class="snap-start shrink-0 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 cursor-pointer"
+                        :class="activeTab === 'upcoming' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 scale-[1.02]' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    >
+                        <Clock class="w-4 h-4 text-amber-500" :class="{ 'text-white': activeTab === 'upcoming' }" />
+                        <span>Terjadwal / Belum</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold" :class="activeTab === 'upcoming' ? 'bg-white/20 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'">
+                            {{ upcomingList.length }}
+                        </span>
+                    </button>
 
-                <button
-                    @click="activeTab = 'puskesmas'"
-                    class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 whitespace-nowrap cursor-pointer"
-                    :class="activeTab === 'puskesmas' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                >
-                    <ShieldCheck class="w-4 h-4" />
-                    <span>Info Puskesmas</span>
-                </button>
+                    <button
+                        @click="activeTab = 'all'"
+                        class="snap-start shrink-0 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 cursor-pointer"
+                        :class="activeTab === 'all' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 scale-[1.02]' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    >
+                        <HeartPulse class="w-4 h-4 text-sky-500" :class="{ 'text-white': activeTab === 'all' }" />
+                        <span>Semua Vaksin</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold" :class="activeTab === 'all' ? 'bg-white/20 text-white' : 'bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300'">
+                            {{ allImmunizations.length }}
+                        </span>
+                    </button>
+
+                    <button
+                        @click="activeTab = 'puskesmas'"
+                        class="snap-start shrink-0 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 cursor-pointer"
+                        :class="activeTab === 'puskesmas' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 scale-[1.02]' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    >
+                        <ShieldCheck class="w-4 h-4 text-purple-500" :class="{ 'text-white': activeTab === 'puskesmas' }" />
+                        <span>Info Puskesmas</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Tab Content 1: Sudah Dilakukan -->
