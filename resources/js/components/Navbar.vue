@@ -11,20 +11,24 @@ const authUser = computed(() => page.props.auth?.user as { name: string; role: s
     <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-emerald-100 dark:border-slate-800 shadow-xs w-full overflow-x-hidden">
         <div class="max-w-6xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
             <!-- Brand / Logo -->
-            <Link href="/" class="flex items-center gap-2.5 group shrink-0">
-                <img
-                    src="/logo.jpeg"
-                    alt="Logo Puskesmas Bulusan"
-                    class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-contain shadow-sm border border-slate-100 dark:border-slate-800 bg-white p-0.5 group-hover:scale-105 transition-transform duration-200"
-                />
-                <div>
-                    <span class="text-base sm:text-lg font-extrabold text-slate-800 dark:text-white tracking-tight flex items-center gap-1.5">
-                        SIMUNA
-                        <span class="hidden md:inline-block text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-semibold">
+            <Link href="/" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                <div class="h-10 sm:h-11 px-2 py-1 rounded-xl bg-white shadow-xs border border-slate-200/80 dark:border-slate-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                    <img
+                        src="/logo.jpeg"
+                        alt="Logo FK Unimus"
+                        class="h-7 sm:h-9 w-auto object-contain max-w-[140px] sm:max-w-[180px]"
+                    />
+                </div>
+                <div class="flex flex-col justify-center">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="text-base sm:text-lg font-black text-slate-800 dark:text-white tracking-tight leading-none">
+                            SIMUNA
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 text-[10px] sm:text-xs font-bold border border-emerald-200 dark:border-emerald-800 shadow-2xs">
                             Puskesmas Bulusan
                         </span>
-                    </span>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 hidden lg:block">Sistem Informasi Rekap Imunisasi Anak</p>
+                    </div>
+                    <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5">Sistem Informasi Rekap Imunisasi Anak</p>
                 </div>
             </Link>
 

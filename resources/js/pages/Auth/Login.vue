@@ -30,8 +30,8 @@ function submit() {
         <main class="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
             <div class="max-w-md w-full my-auto">
                 <div class="text-center mb-6">
-                    <div class="w-14 h-14 rounded-3xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20 mb-3">
-                        <UserCheck class="w-7 h-7" />
+                    <div class="inline-flex items-center justify-center px-3 py-1.5 rounded-2xl bg-white shadow-sm border border-slate-200/80 dark:border-slate-700 mx-auto mb-3">
+                        <img src="/logo.jpeg" alt="Logo FK Unimus" class="h-9 sm:h-11 w-auto object-contain" />
                     </div>
                     <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Selamat Datang Kembali</h1>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
