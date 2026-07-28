@@ -119,6 +119,8 @@ function saveImmunizationUpdate() {
     if (!selectedRecord.value) return
     isSubmittingUpdate.value = true
 
+    const childName = selectedRecord.value.child_name || 'responden'
+
     router.put(
         `/admin/respondents/${selectedRecord.value.id}`,
         {
@@ -131,11 +133,17 @@ function saveImmunizationUpdate() {
             preserveScroll: true,
             onSuccess: () => {
                 isSubmittingUpdate.value = false
-                if (selectedRecord.value) {
-                    selectedRecord.value.immunization_types = [...editTypes.value]
-                    selectedRecord.value.immunization_status = editStatus.value
-                    selectedRecord.value.incomplete_reason = editStatus.value === 'tidak lengkap' ? editReason.value : null
-                }
+                selectedRecord.value = null // Automatically close modal popup!
+
+                // Trigger toast notification
+                window.dispatchEvent(
+                    new CustomEvent('show-toast', {
+                        detail: {
+                            message: `Status & rekap imunisasi ${childName} berhasil diperbarui!`,
+                            type: 'success',
+                        },
+                    })
+                )
             },
             onError: () => {
                 isSubmittingUpdate.value = false

@@ -11,24 +11,24 @@ const authUser = computed(() => page.props.auth?.user as { name: string; role: s
     <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-emerald-100 dark:border-slate-800 shadow-xs w-full overflow-x-hidden">
         <div class="max-w-6xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
             <!-- Brand / Logo -->
-            <Link href="/" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-                <div class="h-10 sm:h-11 px-2 py-1 rounded-xl bg-white shadow-xs border border-slate-200/80 dark:border-slate-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+            <Link href="/" class="flex items-center gap-1.5 sm:gap-2.5 group shrink-0">
+                <div class="h-8 sm:h-10 px-1.5 py-0.5 rounded-xl bg-white shadow-xs border border-slate-200/80 dark:border-slate-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
                     <img
                         src="/logo.jpeg"
                         alt="Logo FK Unimus"
-                        class="h-7 sm:h-9 w-auto object-contain max-w-[140px] sm:max-w-[180px]"
+                        class="h-5.5 sm:h-7.5 w-auto object-contain max-w-[90px] sm:max-w-[160px]"
                     />
                 </div>
                 <div class="flex flex-col justify-center">
-                    <div class="flex items-center gap-1.5 flex-wrap">
-                        <span class="text-base sm:text-lg font-black text-slate-800 dark:text-white tracking-tight leading-none">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-sm sm:text-base font-black text-slate-800 dark:text-white tracking-tight leading-none">
                             SIMUNA
                         </span>
-                        <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 text-[10px] sm:text-xs font-bold border border-emerald-200 dark:border-emerald-800 shadow-2xs">
+                        <span class="hidden sm:inline-block px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 text-[10px] sm:text-xs font-bold border border-emerald-200 dark:border-emerald-800 shadow-2xs shrink-0">
                             Puskesmas Bulusan
                         </span>
                     </div>
-                    <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5">Sistem Informasi Rekap Imunisasi Anak</p>
+                    <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden lg:block mt-0.5">Sistem Informasi Rekap Imunisasi Anak</p>
                 </div>
             </Link>
 
