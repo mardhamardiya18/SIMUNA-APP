@@ -96,6 +96,42 @@ watch(selectedRecord, (rec) => {
     }
 }, { immediate: true })
 
+const allAdminVaccineCodes = computed(() => availableVaccines.value.map(v => v.code))
+
+watch(editStatus, (newStatus) => {
+    if (!selectedRecord.value) return
+    if (newStatus === 'lengkap') {
+        if (editTypes.value.length !== allAdminVaccineCodes.value.length) {
+            editTypes.value = [...allAdminVaccineCodes.value]
+        }
+        editReason.value = ''
+    } else if (newStatus === 'tidak lengkap') {
+        if (editTypes.value.length === allAdminVaccineCodes.value.length) {
+            editTypes.value = []
+        }
+    }
+})
+
+watch(
+    editTypes,
+    (newTypes) => {
+        if (!selectedRecord.value) return
+        const total = allAdminVaccineCodes.value.length
+        if (total > 0) {
+            if (newTypes.length === total) {
+                if (editStatus.value !== 'lengkap') {
+                    editStatus.value = 'lengkap'
+                }
+            } else {
+                if (editStatus.value !== 'tidak lengkap') {
+                    editStatus.value = 'tidak lengkap'
+                }
+            }
+        }
+    },
+    { deep: true }
+)
+
 function toggleVaccineCode(code: string) {
     const idx = editTypes.value.indexOf(code)
     if (idx > -1) {
@@ -106,7 +142,7 @@ function toggleVaccineCode(code: string) {
 }
 
 function selectAllVaccines() {
-    editTypes.value = availableVaccines.value.map(v => v.code)
+    editTypes.value = [...allAdminVaccineCodes.value]
     editStatus.value = 'lengkap'
 }
 

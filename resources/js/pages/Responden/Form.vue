@@ -122,6 +122,43 @@ watch(
     }
 )
 
+const allVaccineCodes = computed(() => activeVaccineOptions.value.map(item => item.code))
+
+watch(
+    () => form.immunization_status,
+    (newStatus) => {
+        if (newStatus === 'lengkap') {
+            if (form.immunization_types.length !== allVaccineCodes.value.length) {
+                form.immunization_types = [...allVaccineCodes.value]
+            }
+            form.incomplete_reason = ''
+        } else if (newStatus === 'tidak lengkap') {
+            if (form.immunization_types.length === allVaccineCodes.value.length) {
+                form.immunization_types = []
+            }
+        }
+    }
+)
+
+watch(
+    () => form.immunization_types,
+    (newTypes) => {
+        const total = allVaccineCodes.value.length
+        if (total > 0) {
+            if (newTypes.length === total) {
+                if (form.immunization_status !== 'lengkap') {
+                    form.immunization_status = 'lengkap'
+                }
+            } else {
+                if (form.immunization_status !== 'tidak lengkap') {
+                    form.immunization_status = 'tidak lengkap'
+                }
+            }
+        }
+    },
+    { deep: true }
+)
+
 function toggleImmunization(code: string) {
     const current = [...form.immunization_types]
     const index = current.indexOf(code)
@@ -134,12 +171,13 @@ function toggleImmunization(code: string) {
 }
 
 function selectAllVaccines() {
-    form.immunization_types = activeVaccineOptions.value.map(item => item.code)
+    form.immunization_types = [...allVaccineCodes.value]
     form.immunization_status = 'lengkap'
 }
 
 function clearVaccines() {
     form.immunization_types = []
+    form.immunization_status = 'tidak lengkap'
 }
 
 function submit() {

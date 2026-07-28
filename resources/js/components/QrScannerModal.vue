@@ -141,3 +141,25 @@ function close() {
         </div>
     </div>
 </template>
+
+<style scoped>
+:deep(#qr-reader-container) {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    border: none !important;
+}
+
+:deep(#qr-reader-container video) {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 1rem !important;
+}
+
+:deep(#qr-reader-container__scan_region) {
+    width: 100% !important;
+    height: 100% !important;
+}
+</style>
