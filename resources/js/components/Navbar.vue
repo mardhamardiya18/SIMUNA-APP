@@ -28,7 +28,7 @@ const authUser = computed(() => page.props.auth?.user as { name: string; role: s
                             Puskesmas Bulusan
                         </span>
                     </div>
-                    <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden lg:block mt-0.5">Sistem Informasi Rekap Imunisasi Anak</p>
+                    <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden lg:block mt-0.5">Sistem Informasi Monitoring Status Imunisasi Anak</p>
                 </div>
             </Link>
 
