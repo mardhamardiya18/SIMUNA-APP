@@ -180,7 +180,7 @@ function submit() {
                         <HeartPulse class="w-6 h-6 sm:w-8 sm:h-8 text-emerald-200 shrink-0" />
                         <div class="text-left">
                             <p class="text-[9px] sm:text-[10px] text-emerald-200 font-semibold uppercase tracking-wider">Puskesmas Mitra</p>
-                            <p class="text-xs font-bold text-white">SIMUNA Sehat Bersama</p>
+                            <p class="text-xs font-bold text-white">Puskesmas Bulusan</p>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Immunization;
 use App\Models\ImmunizationRecord;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,7 +51,28 @@ class AdminDashboardController extends Controller
                 'search' => $search ?? '',
                 'status' => $status ?? 'all',
             ],
+            'allImmunizations' => Immunization::getAllOrStatic(),
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $record = ImmunizationRecord::findOrFail($id);
+
+        $validated = $request->validate([
+            'immunization_types' => 'nullable|array',
+            'immunization_types.*' => 'string',
+            'immunization_status' => 'required|in:lengkap,tidak lengkap',
+            'incomplete_reason' => 'nullable|string',
+        ]);
+
+        $record->update([
+            'immunization_types' => $validated['immunization_types'] ?? [],
+            'immunization_status' => $validated['immunization_status'],
+            'incomplete_reason' => $validated['incomplete_reason'] ?? null,
+        ]);
+
+        return back()->with('success', 'Status & rekap imunisasi berhasil diperbarui.');
     }
 
     public function destroy($id)

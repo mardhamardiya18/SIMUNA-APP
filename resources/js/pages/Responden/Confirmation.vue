@@ -55,7 +55,7 @@ onMounted(() => {
                     Terima Kasih, {{ record.head_of_family }}!
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-md mx-auto">
-                    Data kelengkapan imunisasi <span class="font-bold text-slate-900 dark:text-white">{{ record.child_name }}</span> telah tersimpan di database Puskesmas SIMUNA.
+                    Data kelengkapan imunisasi <span class="font-bold text-slate-900 dark:text-white">{{ record.child_name }}</span> telah tersimpan di database Puskesmas Bulusan.
                 </p>
 
                 <!-- Unique ID & Barcode QR Code Card -->

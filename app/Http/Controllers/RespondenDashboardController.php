@@ -23,11 +23,11 @@ class RespondenDashboardController extends Controller
         $upcomingList = $allImmunizations->filter(fn ($item) => ! in_array($item->code, $completedCodes))->values();
 
         $puskesmasInfo = [
-            'name' => 'Puskesmas Sehat Bersama (SIMUNA)',
-            'address' => 'Jl. Kesehatan No. 45, Kecamatan Melati',
+            'name' => 'Puskesmas Bulusan',
+            'address' => 'Jalan Timoho Raya, Kelurahan Bulusan, Kecamatan Tembalang, Kota Semarang, Jawa Tengah 50277',
             'phone' => '0812-3456-7890',
             'hours' => 'Senin - Sabtu: 08.00 - 12.00 WIB',
-            'midwife' => 'Bidan Maria, S.Tr.Keb & Tim Posyandu',
+            'midwife' => 'Bidan Tim Posyandu Puskesmas Bulusan',
             'posyandu_schedule' => 'Setiap Hari Selasa Minggu ke-2 & ke-4',
         ];
 

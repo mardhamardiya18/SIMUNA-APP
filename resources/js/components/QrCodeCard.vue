@@ -48,7 +48,7 @@ const props = defineProps<{
 
         <div class="mt-4 pt-3 border-t border-dashed border-emerald-200 dark:border-slate-700 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
             <ShieldCheck class="w-4 h-4 text-emerald-500 shrink-0" />
-            Tunjukkan kode ini ke petugas Puskesmas saat verifikasi offline
+            Tunjukkan kode ini ke petugas Puskesmas Bulusan saat verifikasi offline
         </div>
     </div>
 </template>

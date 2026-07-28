@@ -175,7 +175,7 @@ function submit() {
 
                 <div class="mt-6 text-center flex items-center justify-center gap-1.5 text-xs text-slate-400">
                     <ShieldCheck class="w-4 h-4 text-emerald-500" />
-                    Data terjaga aman & rahasia oleh Puskesmas
+                    Data terjaga aman & rahasia oleh Puskesmas Bulusan
                 </div>
             </div>
         </main>

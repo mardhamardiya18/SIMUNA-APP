@@ -6,9 +6,10 @@ import QrCodeCard from '@/components/QrCodeCard.vue'
 import QrScannerModal from '@/components/QrScannerModal.vue'
 import {
     ShieldCheck, Users, CheckCircle2, AlertCircle, Search,
-    Filter, Trash2, Eye, Baby, Phone, MapPin, Download, RefreshCw, X, QrCode
+    Filter, Trash2, Eye, Baby, Phone, MapPin, Download, RefreshCw, X, QrCode,
+    Check, Edit3, Save, CheckSquare, Square
 } from 'lucide-vue-next'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 
 const props = defineProps<{
     records: {
@@ -50,12 +51,98 @@ const props = defineProps<{
         search: string
         status: string
     }
+    allImmunizations?: Array<{ code: string; name: string; category?: string; recommended_age?: string }>
 }>()
 
 const searchInput = ref(props.filters.search || '')
 const statusFilter = ref(props.filters.status || 'all')
 const selectedRecord = ref<any>(null)
 const isScannerOpen = ref(false)
+
+// Edit status & vaccine list in detail modal
+const editTypes = ref<string[]>([])
+const editStatus = ref<'lengkap' | 'tidak lengkap'>('lengkap')
+const editReason = ref('')
+const isSubmittingUpdate = ref(false)
+
+const defaultVaccines = [
+    { code: 'HB-0', name: 'Hepatitis B (HB-0)', recommended_age: '0 Bulan' },
+    { code: 'BCG', name: 'BCG', recommended_age: '1 Bulan' },
+    { code: 'POLIO-1', name: 'Polio Tetes 1', recommended_age: '1 Bulan' },
+    { code: 'DPT-1', name: 'DPT-HB-Hib 1', recommended_age: '2 Bulan' },
+    { code: 'POLIO-2', name: 'Polio Tetes 2', recommended_age: '2 Bulan' },
+    { code: 'DPT-2', name: 'DPT-HB-Hib 2', recommended_age: '3 Bulan' },
+    { code: 'POLIO-3', name: 'Polio Tetes 3', recommended_age: '3 Bulan' },
+    { code: 'DPT-3', name: 'DPT-HB-Hib 3', recommended_age: '4 Bulan' },
+    { code: 'POLIO-4', name: 'Polio Tetes 4', recommended_age: '4 Bulan' },
+    { code: 'IPV-1', name: 'IPV 1 (Polio Suntik)', recommended_age: '4 Bulan' },
+    { code: 'CAMPAK', name: 'Campak / MR 1', recommended_age: '9 Bulan' },
+    { code: 'IPV-2', name: 'IPV 2 (Polio Suntik 2)', recommended_age: '9 Bulan' },
+    { code: 'DPT-BOOSTER', name: 'DPT-HB-Hib Lanjutan', recommended_age: '18 Bulan' },
+    { code: 'CAMPAK-BOOSTER', name: 'Campak / MR Lanjutan', recommended_age: '18 Bulan' },
+]
+
+const availableVaccines = computed(() => {
+    return (props.allImmunizations && props.allImmunizations.length > 0)
+        ? props.allImmunizations
+        : defaultVaccines
+})
+
+watch(selectedRecord, (rec) => {
+    if (rec) {
+        editTypes.value = Array.isArray(rec.immunization_types) ? [...rec.immunization_types] : []
+        editStatus.value = (rec.immunization_status as 'lengkap' | 'tidak lengkap') || 'lengkap'
+        editReason.value = rec.incomplete_reason || ''
+    }
+}, { immediate: true })
+
+function toggleVaccineCode(code: string) {
+    const idx = editTypes.value.indexOf(code)
+    if (idx > -1) {
+        editTypes.value.splice(idx, 1)
+    } else {
+        editTypes.value.push(code)
+    }
+}
+
+function selectAllVaccines() {
+    editTypes.value = availableVaccines.value.map(v => v.code)
+    editStatus.value = 'lengkap'
+}
+
+function clearAllVaccines() {
+    editTypes.value = []
+    editStatus.value = 'tidak lengkap'
+}
+
+function saveImmunizationUpdate() {
+    if (!selectedRecord.value) return
+    isSubmittingUpdate.value = true
+
+    router.put(
+        `/admin/respondents/${selectedRecord.value.id}`,
+        {
+            immunization_types: editTypes.value,
+            immunization_status: editStatus.value,
+            incomplete_reason: editStatus.value === 'tidak lengkap' ? editReason.value : null,
+        },
+        {
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess: () => {
+                isSubmittingUpdate.value = false
+                if (selectedRecord.value) {
+                    selectedRecord.value.immunization_types = [...editTypes.value]
+                    selectedRecord.value.immunization_status = editStatus.value
+                    selectedRecord.value.incomplete_reason = editStatus.value === 'tidak lengkap' ? editReason.value : null
+                }
+            },
+            onError: () => {
+                isSubmittingUpdate.value = false
+            },
+        }
+    )
+}
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
 
@@ -139,13 +226,13 @@ function deleteRecord(id: number, name: string) {
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
                 <div>
                     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300 text-xs font-semibold mb-2">
-                        <ShieldCheck class="w-3.5 h-3.5" /> Panel Petugas Puskesmas SIMUNA
+                        <ShieldCheck class="w-3.5 h-3.5" /> Panel Petugas Puskesmas Bulusan
                     </div>
                     <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                         Rekapitulasi Data Responden
                     </h1>
-                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-                        Kelola data survei kelengkapan imunisasi anak & verifikasi ID posyandu secara offline.
+                    <p class="text-xs sm:text-sm text-emerald-700 dark:text-emerald-400 mt-1 font-bold tracking-wide">
+                        FK Unimus
                     </p>
                 </div>
             </div>
@@ -439,34 +526,129 @@ function deleteRecord(id: number, name: string) {
                     </div>
                 </div>
 
-                <!-- Vaksin Diberikan Box -->
-                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-800 mb-6">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-slate-700 dark:text-slate-200">
-                            Vaksin Diberikan ({{ selectedRecord.immunization_types?.length || 0 }} Vaksin)
-                        </span>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
-                        <span
-                            v-for="vax in selectedRecord.immunization_types"
-                            :key="vax"
-                            class="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950/90 text-emerald-800 dark:text-emerald-300 text-xs font-semibold border border-emerald-200/60 dark:border-emerald-800/60"
-                        >
-                            ✓ {{ vax }}
-                        </span>
-                        <span v-if="!selectedRecord.immunization_types || selectedRecord.immunization_types.length === 0" class="text-xs text-slate-400">
-                            Belum ada vaksin yang dipilih
-                        </span>
+                <!-- Update Status & Rekap Imunisasi (Admin) -->
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-50/50 to-teal-50/50 dark:from-slate-800/90 dark:to-slate-800/50 border border-emerald-200/80 dark:border-slate-700 mb-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-xs">
+                                <Edit3 class="w-4 h-4" />
+                            </div>
+                            <div>
+                                <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">
+                                    Update Status & Rekap Imunisasi
+                                </h4>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400">Pilih vaksin yang diberikan saat posyandu & simpan perubahan</p>
+                            </div>
+                        </div>
+
+                        <!-- Quick Action Buttons -->
+                        <div class="flex items-center gap-1.5 text-[11px]">
+                            <button
+                                type="button"
+                                @click="selectAllVaccines"
+                                class="px-2.5 py-1 rounded-lg bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-950 dark:hover:bg-emerald-900 text-emerald-800 dark:text-emerald-300 font-semibold transition"
+                            >
+                                Pilih Semua
+                            </button>
+                            <button
+                                type="button"
+                                @click="clearAllVaccines"
+                                class="px-2.5 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold transition"
+                            >
+                                Reset
+                            </button>
+                        </div>
                     </div>
 
-                    <div v-if="selectedRecord.incomplete_reason" class="mt-3 text-xs text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 p-2.5 rounded-xl border border-amber-200 dark:border-amber-900">
-                        <strong>Alasan Belum Lengkap:</strong> {{ selectedRecord.incomplete_reason }}
+                    <!-- Status Selector: Lengkap vs Tidak Lengkap -->
+                    <div class="mb-4">
+                        <label class="text-[11px] font-bold text-slate-600 dark:text-slate-300 block mb-1.5">
+                            Status Imunisasi Saat Ini:
+                        </label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button
+                                type="button"
+                                @click="editStatus = 'lengkap'"
+                                class="py-2 px-3 rounded-xl border font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+                                :class="editStatus === 'lengkap'
+                                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm shadow-emerald-600/30'
+                                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50'"
+                            >
+                                <CheckCircle2 class="w-4 h-4" /> Lengkap
+                            </button>
+                            <button
+                                type="button"
+                                @click="editStatus = 'tidak lengkap'"
+                                class="py-2 px-3 rounded-xl border font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+                                :class="editStatus === 'tidak lengkap'
+                                    ? 'bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-500/30'
+                                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50'"
+                            >
+                                <AlertCircle class="w-4 h-4" /> Tidak Lengkap
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Vaccine Checklist -->
+                    <div class="mb-3">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                                List Vaksin Diberikan ({{ editTypes.length }}/{{ availableVaccines.length }} Terpilih)
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-48 overflow-y-auto pr-1">
+                            <div
+                                v-for="vax in availableVaccines"
+                                :key="vax.code"
+                                @click="toggleVaccineCode(vax.code)"
+                                class="p-2 rounded-xl border text-xs flex items-center justify-between cursor-pointer transition select-none"
+                                :class="editTypes.includes(vax.code)
+                                    ? 'bg-emerald-100/90 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-semibold'
+                                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-emerald-300'"
+                            >
+                                <div class="flex items-center gap-2 truncate">
+                                    <CheckSquare v-if="editTypes.includes(vax.code)" class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                                    <Square v-else class="w-4 h-4 text-slate-400 shrink-0" />
+                                    <span class="truncate">{{ vax.name }}</span>
+                                </div>
+                                <span v-if="vax.recommended_age" class="text-[10px] text-slate-400 font-mono shrink-0 ml-1">
+                                    {{ vax.recommended_age }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reason text area if Tidak Lengkap -->
+                    <div v-if="editStatus === 'tidak lengkap'" class="mt-3">
+                        <label class="text-[11px] font-bold text-amber-800 dark:text-amber-300 block mb-1">
+                            Alasan Imunisasi Belum Lengkap:
+                        </label>
+                        <input
+                            v-model="editReason"
+                            type="text"
+                            placeholder="Contoh: Anak sedang demam / ditunda bulan depan"
+                            class="w-full px-3 py-2 text-xs rounded-xl bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-800 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-amber-500 outline-none"
+                        />
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="mt-4 pt-3 border-t border-emerald-200/60 dark:border-slate-700 flex justify-end">
+                        <button
+                            type="button"
+                            @click="saveImmunizationUpdate"
+                            :disabled="isSubmittingUpdate"
+                            class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs shadow-md shadow-emerald-600/30 flex items-center justify-center gap-2 transition cursor-pointer"
+                        >
+                            <RefreshCw v-if="isSubmittingUpdate" class="w-4 h-4 animate-spin" />
+                            <Save v-else class="w-4 h-4" />
+                            <span>Simpan Perubahan Imunisasi</span>
+                        </button>
                     </div>
                 </div>
 
                 <button
                     @click="selectedRecord = null"
-                    class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition cursor-pointer"
+                    class="w-full py-3 rounded-2xl bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs transition cursor-pointer"
                 >
                     Tutup Detail Verifikasi
                 </button>
