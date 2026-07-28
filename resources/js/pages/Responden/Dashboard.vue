@@ -306,57 +306,24 @@ const showQrModal = ref(false)
             <div v-if="activeTab === 'puskesmas'" class="space-y-6">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-emerald-100 dark:border-slate-800 shadow-sm">
                     <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                        <ShieldCheck class="w-6 h-6 text-emerald-600" />
-                        Layanan Layanan & Hotline Puskesmas SIMUNA
+                        <MapPin class="w-6 h-6 text-emerald-600" />
+                        Informasi Alamat Puskesmas
                     </h3>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                                    <MapPin class="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <span class="text-xs font-semibold text-slate-400 block">Alamat Puskesmas</span>
-                                    <span class="text-sm font-bold text-slate-900 dark:text-white">{{ puskesmasInfo.name }}</span>
-                                    <p class="text-xs text-slate-500 mt-0.5">{{ puskesmasInfo.address }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center shrink-0">
-                                    <Clock class="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <span class="text-xs font-semibold text-slate-400 block">Jam Operasional Imunisasi</span>
-                                    <span class="text-sm font-bold text-slate-900 dark:text-white">{{ puskesmasInfo.hours }}</span>
-                                </div>
-                            </div>
+                    <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/20">
+                            <MapPin class="w-6 h-6" />
                         </div>
-
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
-                                    <Phone class="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <span class="text-xs font-semibold text-slate-400 block">Hotline WhatsApp Puskesmas</span>
-                                    <a :href="`https://wa.me/${puskesmasInfo.phone.replace(/[^0-9]/g, '')}`" target="_blank" class="text-sm font-bold text-emerald-600 hover:underline">
-                                        {{ puskesmasInfo.phone }}
-                                    </a>
-                                    <p class="text-xs text-slate-500 mt-0.5">Penanggung Jawab: {{ puskesmasInfo.midwife }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                                    <Calendar class="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <span class="text-xs font-semibold text-slate-400 block">Jadwal Posyandu Rutin</span>
-                                    <span class="text-sm font-bold text-slate-900 dark:text-white">{{ puskesmasInfo.posyandu_schedule }}</span>
-                                </div>
-                            </div>
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 block">
+                                Nama Puskesmas
+                            </span>
+                            <h4 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                                {{ puskesmasInfo.name || 'Puskesmas Bulusan' }}
+                            </h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed pt-1">
+                                {{ puskesmasInfo.address || 'Jalan Timoho Raya, Kelurahan Bulusan, Kecamatan Tembalang, Kota Semarang, Jawa Tengah 50277' }}
+                            </p>
                         </div>
                     </div>
                 </div>
