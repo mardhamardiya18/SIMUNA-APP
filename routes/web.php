@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/respondents/export', [AdminDashboardController::class, 'exportExcel'])->name('respondents.export');
     Route::put('/respondents/{id}', [AdminDashboardController::class, 'update'])->name('respondents.update');
     Route::delete('/respondents/{id}', [AdminDashboardController::class, 'destroy'])->name('respondents.destroy');
 });

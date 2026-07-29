@@ -7,7 +7,7 @@ import QrScannerModal from '@/components/QrScannerModal.vue'
 import {
     ShieldCheck, Users, CheckCircle2, AlertCircle, Search,
     Filter, Trash2, Eye, Baby, Phone, MapPin, Download, RefreshCw, X, QrCode,
-    Check, Edit3, Save, CheckSquare, Square
+    Check, Edit3, Save, CheckSquare, Square, FileSpreadsheet
 } from 'lucide-vue-next'
 import { ref, watch, computed } from 'vue'
 
@@ -239,6 +239,14 @@ function handleScanResult(code: string) {
     }
 }
 
+const exportExcelUrl = computed(() => {
+    const params = new URLSearchParams()
+    if (searchInput.value) params.append('search', searchInput.value)
+    if (statusFilter.value && statusFilter.value !== 'all') params.append('status', statusFilter.value)
+    const queryString = params.toString()
+    return `/admin/respondents/export${queryString ? '?' + queryString : ''}`
+})
+
 function resetFilters() {
     searchInput.value = ''
     statusFilter.value = 'all'
@@ -350,7 +358,18 @@ function deleteRecord(id: number, name: string) {
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 self-end md:self-auto">
+                <div class="flex items-center gap-2 flex-wrap self-end md:self-auto">
+                    <!-- Download Excel Button -->
+                    <a
+                        :href="exportExcelUrl"
+                        class="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-md shadow-emerald-700/20 transition cursor-pointer flex items-center gap-1.5"
+                        title="Download Data Rekap Imunisasi (Excel / Spreadsheet)"
+                    >
+                        <FileSpreadsheet class="w-4 h-4 text-emerald-100" />
+                        <span>Download Excel</span>
+                    </a>
+
+                    <!-- Scan QR Code Button -->
                     <button
                         @click="isScannerOpen = true"
                         class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition cursor-pointer flex items-center gap-1.5"
@@ -358,9 +377,11 @@ function deleteRecord(id: number, name: string) {
                         <QrCode class="w-4 h-4" />
                         <span>Scan QR Code</span>
                     </button>
+
+                    <!-- Reset Filter Button -->
                     <button
                         @click="resetFilters"
-                        class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                        class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
                         title="Reset Filter"
                     >
                         <RefreshCw class="w-4 h-4" />
