@@ -5,8 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="icon" href="/logoPuskesmas.png" type="image/png">
         <link rel="icon" href="/logo.jpeg" type="image/jpeg">
-        <link rel="apple-touch-icon" href="/logo.jpeg">
+        <link rel="apple-touch-icon" href="/logoPuskesmas.png">
 
         @fonts
 

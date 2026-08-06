@@ -12,11 +12,17 @@ const authUser = computed(() => page.props.auth?.user as { name: string; role: s
         <div class="max-w-6xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
             <!-- Brand / Logo -->
             <Link href="/" class="flex items-center gap-1.5 sm:gap-2.5 group shrink-0">
-                <div class="h-8 sm:h-10 px-1.5 py-0.5 rounded-xl bg-white shadow-xs border border-slate-200/80 dark:border-slate-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                <div class="h-8 sm:h-10 px-2 py-0.5 rounded-xl bg-white shadow-xs border border-slate-200/80 dark:border-slate-700 flex items-center justify-center gap-1.5 shrink-0 group-hover:scale-105 transition-transform duration-200">
                     <img
                         src="/logo.jpeg"
                         alt="Logo FK Unimus"
-                        class="h-5.5 sm:h-7.5 w-auto object-contain max-w-[90px] sm:max-w-[160px]"
+                        class="h-5.5 sm:h-7.5 w-auto object-contain max-w-[65px] sm:max-w-[110px]"
+                    />
+                    <div class="h-4 sm:h-5 w-[1px] bg-slate-200 dark:bg-slate-700"></div>
+                    <img
+                        src="/logoPuskesmas.png"
+                        alt="Logo Puskesmas"
+                        class="h-5.5 sm:h-7.5 w-auto object-contain max-w-[65px] sm:max-w-[110px]"
                     />
                 </div>
                 <div class="flex flex-col justify-center">
